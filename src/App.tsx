@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { ArenaAnimation } from './components/ArenaAnimation';
 import { LoginForm } from './components/LoginForm';
 import { SignUpForm } from './components/SignUpForm';
+import { Home } from './components/Home';
 
 function App() {
   const brandingRef = useRef<HTMLElement>(null);
@@ -83,6 +84,7 @@ function App() {
             <div className="absolute -bottom-px -right-px w-8 h-8 border-b-2 border-r-2 border-secondary/40 rounded-br-xl"></div>
             
             <Routes>
+              <Route path="/" element={<Home />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/signup" element={<SignUpForm />} />
               <Route path="*" element={<Navigate to="/login" replace />} />
