@@ -5,7 +5,8 @@ import { LoginForm } from './components/LoginForm';
 import { SignUpForm } from './components/SignUpForm';
 import { Home } from './components/Home';
 
-function App() {
+// Separate wrapper component for the login/signup split screen portal layout
+function PortalLayout({ children }: { children: React.ReactNode }) {
   const brandingRef = useRef<HTMLElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
@@ -83,12 +84,7 @@ function App() {
             <div className="absolute -top-px -left-px w-8 h-8 border-t-2 border-l-2 border-primary/40 rounded-tl-xl"></div>
             <div className="absolute -bottom-px -right-px w-8 h-8 border-b-2 border-r-2 border-secondary/40 rounded-br-xl"></div>
             
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<LoginForm />} />
-              <Route path="/signup" element={<SignUpForm />} />
-              <Route path="*" element={<Navigate to="/login" replace />} />
-            </Routes>
+            {children}
           </div>
           
           {/* Decorative System Logs */}
@@ -112,6 +108,22 @@ function App() {
         </div>
       </footer>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Routes>
+      {/* Root Route is the full-width Home landing page */}
+      <Route path="/" element={<Home />} />
+      
+      {/* Login / Signup route wraps children inside the portal split-screen layout */}
+      <Route path="/login" element={<PortalLayout><LoginForm /></PortalLayout>} />
+      <Route path="/signup" element={<PortalLayout><SignUpForm /></PortalLayout>} />
+      
+      {/* Fallback to home */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 
