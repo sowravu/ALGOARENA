@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import verificationImg from '../assets/verification.jpg';
 
 export function SignUpForm() {
   const navigate = useNavigate();
@@ -340,7 +341,7 @@ export function SignUpForm() {
             <img 
               alt="Verification Pulse" 
               className="relative w-40 h-40 mx-auto object-contain drop-shadow-[0_0_30px_rgba(71,214,255,0.3)]" 
-              src="https://lh3.googleusercontent.com/aida/AP1WRLu3e3mtABluui7IQ1Nj8pLYeTZtPuNRB-fSIBzTJNAtx1iwIej3KnbL-JMS4QMAUvN_5mcXG70XvHEqGL0mK0pI6do-ahf98TJ9lMIZa-Z-9SI1sPm-Ea6W9akwYTEyC9CGjV6QiitKVqfMERixQpxwsGc6KrndacEcaWZ2u7uYJpWwpYaf_lGxUHrFFWpfe5XMT7Upkdn8QIXyowATVvv4NrzTLIvthPH9XZQWzu3XlxXQDlAb-UHxl9yg"
+              src={verificationImg}
             />
           </div>
           <h2 className="font-headline-lg text-headline-lg text-on-surface mb-2 tracking-tight">Verify your email</h2>
