@@ -7,6 +7,8 @@ export function SignUpForm() {
   const [signUpEmail, setSignUpEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,6 +19,16 @@ export function SignUpForm() {
   const handleProfileSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Profile details submitted:', { signUpEmail, firstName, lastName });
+    setStep(3);
+  };
+
+  const handleCompleteSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      alert('Passwords do not match.');
+      return;
+    }
+    console.log('Registration Complete:', { signUpEmail, firstName, lastName, password });
   };
 
   if (step === 1) {
@@ -27,6 +39,13 @@ export function SignUpForm() {
           <div className="mb-6">
             <h2 className="font-headline-lg text-headline-lg text-on-surface mb-2 font-semibold">Create your account</h2>
             <p className="font-body-md text-on-surface-variant">Register your account to enter the arena.</p>
+          </div>
+
+          {/* Progress Indicators */}
+          <div className="flex gap-2 mb-6">
+            <div className="h-1 flex-grow bg-primary shadow-[0_0_10px_rgba(165,231,255,0.5)]"></div>
+            <div className="h-1 flex-grow bg-outline-variant/20"></div>
+            <div className="h-1 flex-grow bg-outline-variant/20"></div>
           </div>
           
           {/* Form */}
@@ -108,78 +127,176 @@ export function SignUpForm() {
     );
   }
 
-  // Step 2: Personalize Profile
+  if (step === 2) {
+    return (
+      <div className="flex flex-col justify-between h-full flex-grow">
+        <div>
+          {/* Header */}
+          <div className="mb-6">
+            <h2 className="font-headline-lg text-headline-lg text-on-surface mb-2 font-semibold">Create your account</h2>
+            <p className="font-body-md text-on-surface-variant">Personalize your profile</p>
+          </div>
+
+          {/* Progress Indicators */}
+          <div className="flex gap-2 mb-6">
+            <div className="h-1 flex-grow bg-primary"></div>
+            <div className="h-1 flex-grow bg-primary shadow-[0_0_10px_rgba(165,231,255,0.5)]"></div>
+            <div className="h-1 flex-grow bg-outline-variant/20"></div>
+          </div>
+          
+          {/* Form */}
+          <form className="space-y-4" onSubmit={handleProfileSubmit}>
+            <div className="grid grid-cols-2 gap-4">
+              {/* First Name Field */}
+              <div className="space-y-2">
+                <label className="font-label-caps text-label-caps text-outline-variant uppercase block tracking-wider" htmlFor="first-name">First Name</label>
+                <div className="relative group input-glow border border-outline-variant/30 rounded-lg bg-surface-container-lowest transition-all">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-primary/60">
+                    <span className="material-symbols-outlined text-[20px]">person</span>
+                  </div>
+                  <input 
+                    className="block w-full pl-11 pr-3 py-3 bg-transparent border-none text-on-surface placeholder:text-outline focus:outline-none focus:ring-0 font-body-md" 
+                    id="first-name" 
+                    placeholder="HEX" 
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+              
+              {/* Last Name Field */}
+              <div className="space-y-2">
+                <label className="font-label-caps text-label-caps text-outline-variant uppercase block tracking-wider" htmlFor="last-name">Last Name</label>
+                <div className="relative group input-glow border border-outline-variant/30 rounded-lg bg-surface-container-lowest transition-all">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-primary/60">
+                    <span className="material-symbols-outlined text-[20px]">id_card</span>
+                  </div>
+                  <input 
+                    className="block w-full pl-11 pr-3 py-3 bg-transparent border-none text-on-surface placeholder:text-outline focus:outline-none focus:ring-0 font-body-md" 
+                    id="last-name" 
+                    placeholder="RUNNER" 
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            
+            {/* CTA Button */}
+            <button 
+              type="submit"
+              className="w-full py-3 px-6 rounded-lg btn-gradient text-white font-label-caps font-bold text-[13px] tracking-[0.2em] uppercase mt-4 active:scale-95 transition-all duration-150 cursor-pointer"
+            >
+              NEXT
+            </button>
+            
+            {/* Back Link */}
+            <div className="text-center mt-6">
+              <button
+                type="button"
+                onClick={() => setStep(1)}
+                className="font-label-caps text-label-caps text-primary hover:text-primary-container transition-colors duration-200 flex items-center justify-center gap-2 group mx-auto bg-transparent border-none cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-[14px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                BACK TO EMAIL
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  // Step 3: Secure Account
   return (
     <div className="flex flex-col justify-between h-full flex-grow">
       <div>
         {/* Header */}
         <div className="mb-6">
-          <h2 className="font-headline-lg text-headline-lg text-on-surface mb-2 font-semibold">Create your account</h2>
-          <p className="font-body-md text-on-surface-variant">Personalize your profile</p>
+          <h2 className="font-headline-lg text-headline-lg text-on-surface mb-2 font-semibold">Secure your account</h2>
+          <p className="font-body-md text-on-surface-variant font-medium">Set a strong password for your operator profile.</p>
+        </div>
+
+        {/* Progress Indicators */}
+        <div className="flex gap-2 mb-6">
+          <div className="h-1 flex-grow bg-primary"></div>
+          <div className="h-1 flex-grow bg-primary"></div>
+          <div className="h-1 flex-grow bg-primary shadow-[0_0_10px_rgba(165,231,255,0.5)]"></div>
         </div>
         
         {/* Form */}
-        <form className="space-y-4" onSubmit={handleProfileSubmit}>
-          <div className="grid grid-cols-2 gap-4">
-            {/* First Name Field */}
-            <div className="space-y-2">
-              <label className="font-label-caps text-label-caps text-outline-variant uppercase block tracking-wider" htmlFor="first-name">First Name</label>
-              <div className="relative group input-glow border border-outline-variant/30 rounded-lg bg-surface-container-lowest transition-all">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-primary/60">
-                  <span className="material-symbols-outlined text-[20px]">person</span>
-                </div>
-                <input 
-                  className="block w-full pl-11 pr-3 py-3 bg-transparent border-none text-on-surface placeholder:text-outline focus:outline-none focus:ring-0 font-body-md" 
-                  id="first-name" 
-                  placeholder="HEX" 
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                />
+        <form className="space-y-4" onSubmit={handleCompleteSubmit}>
+          {/* Password Field */}
+          <div className="space-y-2">
+            <label className="font-label-caps text-label-caps text-outline-variant uppercase tracking-wider block" htmlFor="password">Password</label>
+            <div className="relative group input-glow border border-outline-variant/30 rounded-lg bg-surface-container-lowest transition-all">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-primary/60">
+                <span className="material-symbols-outlined text-[20px]">lock</span>
               </div>
+              <input 
+                className="block w-full pl-12 pr-4 py-3 bg-transparent border-none text-on-surface placeholder:text-outline focus:outline-none focus:ring-0 font-body-md" 
+                id="password" 
+                placeholder="••••••••" 
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
             </div>
-            
-            {/* Last Name Field */}
-            <div className="space-y-2">
-              <label className="font-label-caps text-label-caps text-outline-variant uppercase block tracking-wider" htmlFor="last-name">Last Name</label>
-              <div className="relative group input-glow border border-outline-variant/30 rounded-lg bg-surface-container-lowest transition-all">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-primary/60">
-                  <span className="material-symbols-outlined text-[20px]">id_card</span>
-                </div>
-                <input 
-                  className="block w-full pl-11 pr-3 py-3 bg-transparent border-none text-on-surface placeholder:text-outline focus:outline-none focus:ring-0 font-body-md" 
-                  id="last-name" 
-                  placeholder="RUNNER" 
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                />
+          </div>
+          
+          {/* Confirm Password Field */}
+          <div className="space-y-2">
+            <label className="font-label-caps text-label-caps text-outline-variant uppercase tracking-wider block" htmlFor="confirm-password">Confirm Password</label>
+            <div className="relative group input-glow border border-outline-variant/30 rounded-lg bg-surface-container-lowest transition-all">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-primary/60">
+                <span className="material-symbols-outlined text-[20px]">verified_user</span>
               </div>
+              <input 
+                className="block w-full pl-12 pr-4 py-3 bg-transparent border-none text-on-surface placeholder:text-outline focus:outline-none focus:ring-0 font-body-md" 
+                id="confirm-password" 
+                placeholder="••••••••" 
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
             </div>
           </div>
           
           {/* CTA Button */}
           <button 
             type="submit"
-            className="w-full py-3 px-6 rounded-lg btn-gradient text-white font-label-caps font-bold text-[13px] tracking-[0.2em] uppercase mt-4 active:scale-95 transition-all duration-150 cursor-pointer"
+            className="w-full py-3 px-6 rounded-lg btn-gradient text-white font-label-caps font-bold text-[13px] tracking-[0.2em] uppercase mt-6 flex items-center justify-center gap-3 active:scale-95 transition-all duration-150 cursor-pointer"
           >
-            NEXT
+            Complete Registration <span className="material-symbols-outlined text-[20px]">bolt</span>
           </button>
           
           {/* Back Link */}
           <div className="text-center mt-6">
             <button
               type="button"
-              onClick={() => setStep(1)}
-              className="font-label-caps text-label-caps text-primary hover:text-primary-container transition-colors duration-200 flex items-center justify-center gap-2 group mx-auto bg-transparent border-none cursor-pointer"
+              onClick={() => setStep(2)}
+              className="font-label-caps text-[11px] text-primary hover:text-primary-container transition-colors uppercase flex items-center justify-center gap-2 group mx-auto bg-transparent border-none cursor-pointer"
             >
               <span className="material-symbols-outlined text-[14px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
-              BACK TO EMAIL
+              Back to Profile
             </button>
           </div>
         </form>
+
+        {/* Decorative System Logs */}
+        <div className="mt-8 flex justify-between items-center opacity-40 font-code-md text-[10px] uppercase tracking-wider select-none">
+          <div className="flex gap-4">
+            <span>HASH: SHA-512</span>
+            <span>SALT: AUTO_GEN</span>
+          </div>
+          <span>NODE_03</span>
+        </div>
       </div>
     </div>
   );
