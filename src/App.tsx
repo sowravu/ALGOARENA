@@ -4,6 +4,8 @@ import { ArenaAnimation } from './components/ArenaAnimation';
 import { LoginForm } from './components/LoginForm';
 import { SignUpForm } from './components/SignUpForm';
 import { Home } from './components/Home';
+import { Profile } from './components/Profile';
+import { Problems } from './components/Problems';
 
 // Separate wrapper component for the login/signup split screen portal layout
 function PortalLayout({ children }: { children: React.ReactNode }) {
@@ -29,13 +31,13 @@ function PortalLayout({ children }: { children: React.ReactNode }) {
       {/* Subtle Scanline Effect */}
       <div className="scanline pointer-events-none"></div>
 
-      <main className="flex h-full w-full">
+      <main className="flex flex-col lg:flex-row h-full w-full">
         {/* Left 60%: Branding Section */}
         <section
           ref={brandingRef}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className="relative w-3/5 h-full flex flex-col justify-center items-center overflow-hidden bg-[#0A0A0C] transition-all duration-300"
+          className="relative hidden lg:flex lg:w-3/5 h-full flex flex-col justify-center items-center overflow-hidden bg-[#0A0A0C] transition-all duration-300"
         >
           {/* Background Elements */}
           <div className="absolute inset-0 cyber-grid opacity-30 pointer-events-none"></div>
@@ -77,7 +79,7 @@ function PortalLayout({ children }: { children: React.ReactNode }) {
         </section>
 
         {/* Right 40%: Login Section */}
-        <section className="w-2/5 h-full relative z-30 flex items-center justify-center bg-[#0d0d0f] border-l border-outline-variant/20 p-6 lg:p-margin-desktop">
+        <section className="w-full lg:w-2/5 h-full relative z-30 flex items-center justify-center bg-[#0d0d0f] lg:border-l border-outline-variant/20 p-6 lg:p-margin-desktop">
           {/* Glassmorphism Card */}
           <div className="glass-panel w-full max-w-[360px] min-h-[550px] p-8 rounded-xl relative flex flex-col justify-between">
             {/* Glowing corner accent */}
@@ -116,6 +118,8 @@ function App() {
     <Routes>
       {/* Root Route is the full-width Home landing page */}
       <Route path="/" element={<Home />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/problems" element={<Problems />} />
       
       {/* Login / Signup route wraps children inside the portal split-screen layout */}
       <Route path="/login" element={<PortalLayout><LoginForm /></PortalLayout>} />
