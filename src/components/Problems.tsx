@@ -3,7 +3,7 @@ import { Footer } from './Footer';
 
 export function Problems() {
   return (
-    <div className="min-h-screen text-on-surface bg-background select-none font-sans overflow-x-hidden relative flex flex-col">
+    <div className="min-h-screen text-on-surface bg-background select-none font-sans relative flex flex-col">
       {/* Subtle Scanline Effect */}
       <div className="scanline pointer-events-none"></div>
 

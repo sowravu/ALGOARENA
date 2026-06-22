@@ -25,7 +25,7 @@ export function Home() {
   };
 
   return (
-    <div className="min-h-screen text-on-surface bg-background select-none font-sans overflow-x-hidden relative">
+    <div className="min-h-screen text-on-surface bg-background select-none font-sans relative">
       {/* Subtle Scanline Effect */}
       <div className="scanline pointer-events-none"></div>
 

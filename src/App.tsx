@@ -6,6 +6,7 @@ import { SignUpForm } from './components/SignUpForm';
 import { Home } from './components/Home';
 import { Profile } from './components/Profile';
 import { Problems } from './components/Problems';
+import { Settings } from './components/Settings';
 
 // Separate wrapper component for the login/signup split screen portal layout
 function PortalLayout({ children }: { children: React.ReactNode }) {
@@ -120,6 +121,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/problems" element={<Problems />} />
+      <Route path="/settings" element={<Settings />} />
       
       {/* Login / Signup route wraps children inside the portal split-screen layout */}
       <Route path="/login" element={<PortalLayout><LoginForm /></PortalLayout>} />

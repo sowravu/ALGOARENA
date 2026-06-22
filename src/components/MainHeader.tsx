@@ -66,10 +66,17 @@ export function MainHeader() {
               <span className="material-symbols-outlined text-[20px]">leaderboard</span>
               Leaderboard
             </a>
-            <a className="flex items-center gap-2 text-on-surface-variant hover:text-white transition-colors" href="#">
+            <Link
+              to="/settings"
+              className={
+                currentPath === '/settings'
+                  ? "flex items-center gap-2 px-4 py-2 bg-white/5 rounded text-white font-medium"
+                  : "flex items-center gap-2 text-on-surface-variant hover:text-white transition-colors"
+              }
+            >
               <span className="material-symbols-outlined text-[20px]">settings</span>
               Settings
-            </a>
+            </Link>
           </nav>
         </div>
         
@@ -175,14 +182,18 @@ export function MainHeader() {
             <span className="material-symbols-outlined text-[20px]">leaderboard</span>
             Leaderboard
           </a>
-          <a 
-            className="flex items-center gap-3 px-4 py-2.5 text-on-surface-variant hover:text-white hover:bg-white/5 rounded transition-all" 
-            href="#"
+          <Link 
+            to="/settings"
             onClick={() => setMobileMenuOpen(false)}
+            className={
+              currentPath === '/settings'
+                ? "flex items-center gap-3 px-4 py-2 bg-white/5 rounded text-white font-medium hover:bg-white/10 transition-colors"
+                : "flex items-center gap-3 px-4 py-2.5 text-on-surface-variant hover:text-white hover:bg-white/5 rounded transition-all"
+            }
           >
-            <span className="material-symbols-outlined text-[20px]">settings</span>
+            <span className={`material-symbols-outlined text-[20px] ${currentPath === '/settings' ? 'text-primary' : ''}`}>settings</span>
             Settings
-          </a>
+          </Link>
         </nav>
       </div>
     </header>

@@ -1,9 +1,11 @@
 import { MainHeader } from './MainHeader';
 import { Footer } from './Footer';
 
+import { useNavigate } from 'react-router-dom';
 export function Profile() {
+  const navigate = useNavigate();
   return (
-    <div className="min-h-screen text-on-surface bg-background select-none font-sans overflow-x-hidden relative">
+    <div className="min-h-screen text-on-surface bg-background select-none font-sans relative">
       {/* Subtle Scanline Effect */}
       <div className="scanline pointer-events-none"></div>
 
@@ -49,7 +51,7 @@ export function Profile() {
                     <span>IN</span>
                   </div>
                 </div>
-                <button className="mt-4 px-6 py-2 border border-primary text-primary hover:bg-primary/10 transition-all rounded font-label-caps text-label-caps uppercase tracking-widest active:scale-95">
+                <button onClick={() => navigate('/settings')} className="mt-4 px-6 py-2 border border-primary text-primary hover:bg-primary/10 transition-all rounded font-label-caps text-label-caps uppercase tracking-widest active:scale-95">
                   Edit Profile
                 </button>
               </div>
